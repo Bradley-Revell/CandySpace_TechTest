@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,7 +38,7 @@ class FirstFragment : Fragment() {
         viewModel.getUsers()
 
         //When view loads, this api call is processed
-        viewModel.users.observe(activity as MainActivity, Observer { response ->
+        viewModel.users.observe(requireActivity(), Observer { response ->
             if(response.isSuccessful){
                 Log.d("Response - Success", response.body()?.items.toString())
 
@@ -56,8 +58,32 @@ class FirstFragment : Fragment() {
             }
         })
 
-//        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
+        val button_search = view.findViewById<Button>(R.id.button_NameSearch)
+        val editText_name = view.findViewById<EditText>(R.id.editText_NameSearch)
+        button_search.setOnClickListener {
+            //Decides what happens when the user searches for a name
+            viewModel.getUsersByName(editText_name.text.toString())
+
+            viewModel.users.observe(requireActivity(), Observer { response ->
+                if (response.isSuccessful) {
+                    //CREATE THE MONTH LIST ADAPTER
+                    val rv_user = view.findViewById<RecyclerView>(R.id.recyclerView_Users)
+                    rv_user.layoutManager = LinearLayoutManager(
+                        context,
+                        LinearLayoutManager.VERTICAL,
+                        false
+                    )
+
+                    rv_user.adapter = response.body()?.items?.let { RecyclerAdapter_Users(requireContext(), it) }
+
+                } else {
+                    Toast.makeText(requireContext(),"No users found by that name", Toast.LENGTH_SHORT).show()
+                    Log.d("Response - Err", response.errorBody().toString())
+                    Log.e("Error", response.code().toString())
+                }
+            })
+        }
+
+
     }
 }
