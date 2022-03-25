@@ -35,6 +35,7 @@ class FirstFragment : Fragment() {
         viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
         viewModel.getUsers()
 
+        //When view loads, this api call is processed
         viewModel.users.observe(activity as MainActivity, Observer { response ->
             if(response.isSuccessful){
                 Log.d("Response - Success", response.body()?.items.toString())
@@ -46,6 +47,8 @@ class FirstFragment : Fragment() {
                     LinearLayoutManager.VERTICAL,
                     false
                 )
+
+                rv_user.adapter = response.body()?.items?.let { RecyclerAdapter_Users(requireContext(), it) }
 
             } else {
                 Log.d("Response - Err", response.errorBody().toString())
