@@ -54,7 +54,12 @@ class SecondFragment : Fragment() {
         val badgesText = view.findViewById<TextView>(R.id.textView_badges)
         badgesText.text = Session_User.getBadgesText()
 
-
+        //Apply location
+        val locationText = view.findViewById<TextView>(R.id.textView_location)
+        locationText.text = Session_User.getUsersLocation()
+        //Apply creation date
+        val creationDateText = view.findViewById<TextView>(R.id.textView_creationDate)
+        creationDateText.text = Session_User.getCreationDate()
 
 
         view.findViewById<TextView>(R.id.textView_goBack).setOnClickListener {
@@ -72,6 +77,19 @@ class SecondFragment : Fragment() {
         viewModel.usersTags.observe(requireActivity(), Observer { response ->
             if(response.isSuccessful){
                 Log.d("Response - Success TAG", response.body()?.items.toString())
+                val tags = response.body()?.items
+            //CHECKS TAGS ARE NOT EMPTY
+                if (tags != null){
+                    val tagText = view?.findViewById<TextView>(R.id.textView_topTags)
+                    if (tagText != null) {
+                        var _tagsToDisplay = ""
+                        //Filters through the results getting all of the tag names
+                        for (i in 0 until tags.count()){
+                            _tagsToDisplay += "${tags.get(i).tag_name},"
+                        }
+                        tagText.text = "Top Tags - [$_tagsToDisplay]"
+                    }
+                }
 
             } else {
                 Log.d("Response - Err", response.errorBody().toString())

@@ -18,6 +18,7 @@ data class User(
     val creation_date: Long = 0,
     val user_type: String = "",
     val user_id: Int = 0,
+    val location: String = "",
     val link: String = "",
     val profile_image: String = "",
     val display_name: String = ""
@@ -34,7 +35,7 @@ data class TopTagResponse(
     val items: Array<TagDetails>?,
     val has_more: Boolean,
     val quota_max: Int,
-    val quota_remianing: Int
+    val quota_remaining: Int
 )
 
 data class TagDetails(
