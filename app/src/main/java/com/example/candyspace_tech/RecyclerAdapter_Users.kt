@@ -1,6 +1,7 @@
 package com.example.candyspace_tech
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.candyspace_tech.model.Session_User
 import com.example.candyspace_tech.model.User
 
 class RecyclerAdapter_Users (val context: Context, var userData: Array<User>) : RecyclerView.Adapter<usersViewHolder>(){
@@ -20,6 +23,7 @@ class RecyclerAdapter_Users (val context: Context, var userData: Array<User>) : 
 
         return usersViewHolder(view).listen { position, type ->
             //When a row is selected it will open the next fragment
+            Session_User.userData = userData[position]
             view.setOnClickListener ( Navigation.createNavigateOnClickListener(R.id.action_FirstFragment_to_SecondFragment))
             view.performClick()
         }

@@ -5,28 +5,28 @@ data class UserResponse (
 )
 
 data class User(
-    val badge_counts: Badges,
-    val account_id: Int,
-    val is_employee: Boolean,
-    val last_access_date: Int,
-    val reputation_change_year: Int,
-    val reputation_change_quarter: Int,
-    val reputation_change_month: Int,
-    val reputation_change_week: Int,
-    val reputation_change_day: Int,
-    val reputation: Int,
-    val creation_date: Long,
-    val user_type: String,
-    val user_id: Int,
-    val link: String,
-    val profile_image: String,
-    val display_name: String
+    val badge_counts: Badges? = null,
+    val account_id: Int = 0,
+    val is_employee: Boolean = false,
+    val last_access_date: Int = 0,
+    val reputation_change_year: Int = 0,
+    val reputation_change_quarter: Int = 0,
+    val reputation_change_month: Int = 0,
+    val reputation_change_week: Int = 0,
+    val reputation_change_day: Int = 0,
+    val reputation: Int = 0,
+    val creation_date: Long = 0,
+    val user_type: String = "",
+    val user_id: Int = 0,
+    val link: String = "",
+    val profile_image: String = "",
+    val display_name: String = ""
 )
 
 data class Badges(
-    val bronze: Int,
-    val silver: Int,
-    val gold: Int
+    val bronze: Int = 0,
+    val silver: Int = 0,
+    val gold: Int = 0
 )
 
 
