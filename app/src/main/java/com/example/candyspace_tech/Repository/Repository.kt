@@ -5,6 +5,7 @@ import com.example.candyspace_tech.model.TopTagResponse
 import com.example.candyspace_tech.model.UserResponse
 import retrofit2.Response
 
+//Quick access to the relevant api call and the variables required to create the call
 class Repository {
 
     suspend fun getUsers(): Response<UserResponse> {

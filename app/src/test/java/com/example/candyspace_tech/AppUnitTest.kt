@@ -1,9 +1,7 @@
 package com.example.candyspace_tech
 
-import com.google.common.base.CharMatcher.`is`
+import org.junit.Assert.assertFalse
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).

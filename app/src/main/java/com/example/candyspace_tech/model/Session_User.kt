@@ -10,6 +10,7 @@ object Session_User {
         userData = User()
     }
 
+    //Generates the badges text that will be displayed
     fun getBadgesText() : String{
         val badges = userData.badge_counts
         if (badges != null) {
@@ -19,14 +20,15 @@ object Session_User {
         return  ""
     }
 
-    fun getCreationDate(): String{
-        val convertedDate = Date(userData.creation_date*1000)
+    //Converts the epoch date to a readable string
+    fun getCreationDate(): String {
+        val convertedDate = Date(userData.creation_date * 1000)
 
         val dateFormat = SimpleDateFormat("dd MMM yyyy")
-        val simpleDate = dateFormat.format(convertedDate)
-        return simpleDate
+        return dateFormat.format(convertedDate)
     }
 
+    //Returns the string that is required for the users location
     fun getUsersLocation(): String{
         if(userData.location != ""){
             return "Location - ${userData.location}"

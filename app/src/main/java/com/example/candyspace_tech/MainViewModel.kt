@@ -9,6 +9,7 @@ import com.example.candyspace_tech.model.UserResponse
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
+//View model handles returning the relevant api data back to the view/fragment
 class MainViewModel(private val repository: Repository) : ViewModel(){
 
     val users: MutableLiveData<Response<UserResponse>> = MutableLiveData()

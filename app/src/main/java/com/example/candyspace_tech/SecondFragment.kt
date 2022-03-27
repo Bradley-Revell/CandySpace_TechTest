@@ -2,14 +2,12 @@ package com.example.candyspace_tech
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.candyspace_tech.Repository.Repository
@@ -63,28 +61,27 @@ class SecondFragment : Fragment() {
 
 
         view.findViewById<TextView>(R.id.textView_goBack).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            requireActivity().onBackPressed()
         }
     }
 
     fun getUsersTopTags(){
-        //RUNS API CALL TO GET TAG
+        //RUNS API CALL TO GET TOP TAGS
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this,viewModelFactory).get(MainViewModel::class.java)
         viewModel.getTopTagID(userData.user_id)
 
-        viewModel.usersTags.observe(requireActivity(), Observer { response ->
-            if(response.isSuccessful){
-                Log.d("Response - Success TAG", response.body()?.items.toString())
+        viewModel.usersTags.observe(requireActivity()) { response ->
+            if (response.isSuccessful) {
                 val tags = response.body()?.items
-            //CHECKS TAGS ARE NOT EMPTY
-                if (tags != null){
+                //CHECKS TAGS ARE NOT EMPTY
+                if (tags != null) {
                     val tagText = view?.findViewById<TextView>(R.id.textView_topTags)
                     if (tagText != null) {
                         var _tagsToDisplay = ""
                         //Filters through the results getting all of the tag names
-                        for (i in 0 until tags.count()){
+                        for (i in 0 until tags.count()) {
                             _tagsToDisplay += "${tags.get(i).tag_name},"
                         }
                         tagText.text = "Top Tags - [$_tagsToDisplay]"
@@ -95,6 +92,8 @@ class SecondFragment : Fragment() {
                 Log.d("Response - Err", response.errorBody().toString())
                 Log.e("Error", response.code().toString())
             }
-        })
+        }
     }
+
+
 }

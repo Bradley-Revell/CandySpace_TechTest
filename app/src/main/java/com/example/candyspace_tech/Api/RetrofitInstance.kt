@@ -4,6 +4,7 @@ import com.example.candyspace_tech.Constants
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+//Create an instance of the retrofit api caller
 object RetrofitInstance {
 
     private val retrofit by lazy{

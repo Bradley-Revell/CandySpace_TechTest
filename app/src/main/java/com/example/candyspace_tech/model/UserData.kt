@@ -1,5 +1,6 @@
 package com.example.candyspace_tech.model
 
+//This file holds all of the api data classes
 data class UserResponse (
     val items: Array<User>?
 )

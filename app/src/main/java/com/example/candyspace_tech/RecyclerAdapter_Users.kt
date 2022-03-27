@@ -1,20 +1,15 @@
 package com.example.candyspace_tech
 
-import android.content.Context
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.candyspace_tech.model.Session_User
 import com.example.candyspace_tech.model.User
 
-class RecyclerAdapter_Users (val context: Context, var userData: Array<User>) : RecyclerView.Adapter<usersViewHolder>(){
+class RecyclerAdapter_Users(var userData: Array<User>) : RecyclerView.Adapter<usersViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): usersViewHolder {
@@ -34,15 +29,14 @@ class RecyclerAdapter_Users (val context: Context, var userData: Array<User>) : 
         return userData.size
     }
 
-    private lateinit var viewModel: MainViewModel
 
     override fun onBindViewHolder(holder: usersViewHolder, row: Int){
 
-        Log.e("DATA", userData.get(row).toString())
+
         val userData = userData.get(row)
 
-        holder.caseName.text = userData.display_name
-        //USING THE LIBRARY 'PICASSO' you can pass the display into
+        //Apply the users name to the recycler view row
+        holder.userName.text = userData.display_name
 
 
     }
@@ -51,7 +45,7 @@ class RecyclerAdapter_Users (val context: Context, var userData: Array<User>) : 
 }
 
 class usersViewHolder (view: View) : RecyclerView.ViewHolder(view){
-    val caseName = view.findViewById<TextView>(R.id.rv_textView_name)
+    val userName = view.findViewById<TextView>(R.id.rv_textView_name)
 //    val avatar = view.findViewById<ImageView>(R.id.rv_imageView_avatar)
 
 }
