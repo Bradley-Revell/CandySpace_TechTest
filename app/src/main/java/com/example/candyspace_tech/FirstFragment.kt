@@ -60,9 +60,20 @@ class FirstFragment : Fragment() {
 
         val button_search = view.findViewById<Button>(R.id.button_NameSearch)
         val editText_name = view.findViewById<EditText>(R.id.editText_NameSearch)
+
+        //Handles what happens when the user searches for a name
         button_search.setOnClickListener {
-            //Decides what happens when the user searches for a name
-            viewModel.getUsersByName(editText_name.text.toString())
+
+            val textToSearch = editText_name.text.toString()
+            //Asks the user for a name if not already supplied
+            if(textToSearch.count() == 0){
+                Toast.makeText(requireContext(), "Please enter a name and try again", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            //runs the api call
+            viewModel.getUsersByName(textToSearch)
+
 
             viewModel.users.observe(requireActivity(), Observer { response ->
                 if (response.isSuccessful) {
